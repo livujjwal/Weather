@@ -3,20 +3,20 @@ const btn = document.getElementById("action");
 async function getUserLoction() {
   try {
     await navigator.geolocation.getCurrentPosition(userLoction);
+    const position = {};
+    function userLoction(p) {
+      position["lat"] = p.coords.latitude;
+      position["long"] = p.coords.longitude;
+      const location = document.getElementById("position");
+      location.innerHTML = `
+    <div class="box">Lat : ${position["lat"]}</div>
+    <div class="box">Long : ${position["long"]}</div>`;
+      googleMap(position);
+      getweather(position);
+    }
   } catch (error) {
     console.log(error);
     alert(error);
-  }
-  const position = {};
-  function userLoction(p) {
-    position["lat"] = p.coords.latitude;
-    position["long"] = p.coords.longitude;
-    const location = document.getElementById("position");
-    location.innerHTML = `
-    <div class="box">Lat : ${position["lat"]}</div>
-    <div class="box">Long : ${position["long"]}</div>`;
-    googleMap(position);
-    getweather(position);
   }
 }
 
