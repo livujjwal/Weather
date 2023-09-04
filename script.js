@@ -1,8 +1,7 @@
-const btn = document.getElementById("action");
 //position fn
 async function getUserLoction() {
   try {
-    await navigator.geolocation.getCurrentPosition(userLoction);
+    let x = await navigator.geolocation.getCurrentPosition(userLoction);
     const position = {};
     function userLoction(p) {
       position["lat"] = p.coords.latitude;
@@ -14,6 +13,9 @@ async function getUserLoction() {
       googleMap(position);
       getweather(position);
     }
+    console.log(x);
+    // console.log(y);
+    console.log(position);
   } catch (error) {
     console.log(error);
     alert(error);
@@ -76,7 +78,15 @@ async function getweather(position) {
 
 //main fn
 async function main() {
-  await getUserLoction();
+  try {
+    await getUserLoction();
+  } catch (error) {
+    alert(error);
+  }
 }
-main();
-// btn.addEventListener("click", main());
+
+try {
+  document.addEventListener("DOMContentLoaded", main);
+} catch (error) {
+  alert(error);
+}
